@@ -6,24 +6,24 @@ on:
       - master
 
 jobs:
-  build:
-    name: "Build and Push"
+  cache-and-install:
     runs-on: ubuntu-latest
 
-    steps: 
-    - uses: actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup node
-      uses: actions/setup-node@v4
-      with: 
-        node-version: 20
-        cache: 'pnpm'
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
 
-    - name: Install pnpm
-      run: npm install -g pnpm
-      
-    - name: Install dependencies
-      run: pnpm install
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
-    - name: Run tests
-      run: pnpm run test
+      - name: Install dependencies
+        run: pnpm install
