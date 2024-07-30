@@ -24,7 +24,7 @@ jobs:
 
         
 
-      - name: Install Node.js
+      - name: Install Node.js | ${{matrix.node}}
         uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node}}
