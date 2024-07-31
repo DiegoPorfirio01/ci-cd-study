@@ -22,8 +22,6 @@ jobs:
           version: 8
           run_install: false
 
-        
-
       - name: Install Node.js | ${{matrix.node}}
         uses: actions/setup-node@v4
         with:
@@ -32,3 +30,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Build Docker Image
+        run: docker build -t wired:latest .
