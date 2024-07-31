@@ -8,9 +8,9 @@ on:
 jobs:
   cache-and-install:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-       node: [ 16, 18, 20 ]
+    # strategy:
+    #   matrix:
+    #    node: [ 16, 18, 20 ]
 
     steps:
       - name: Checkout
@@ -25,7 +25,8 @@ jobs:
       - name: Install Node.js | ${{matrix.node}}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{matrix.node}}
+        #   node-version: ${{matrix.node}}
+          node-version: 18
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -44,8 +45,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}   
 
       - name: Build Docker Image
-        run: docker build -t wiredworldweb:${{steps.generate_tag.outputs.sha}} .
+        run: docker build -t wiredworldweb/wired:${{steps.generate_tag.outputs.sha}} .
 
       - name: Push image
-        run: docker push wiredworldweb:${{steps.generate_tag.outputs.sha}} .
+        run: docker push wiredworldweb/wired:${{steps.generate_tag.outputs.sha}} .
             
