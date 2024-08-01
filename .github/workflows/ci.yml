@@ -8,9 +8,6 @@ on:
 jobs:
   cache-and-install:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #    node: [ 16, 18, 20 ]
 
     steps:
       - name: Checkout
@@ -22,10 +19,9 @@ jobs:
           version: 8
           run_install: false
 
-      - name: Install Node.js | ${{matrix.node}}
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-        #   node-version: ${{matrix.node}}
           node-version: 18
           cache: 'pnpm'
 
@@ -35,8 +31,8 @@ jobs:
       - name: Generate tag
         id: generate_tag
         run: | 
-         SHA=$(echo $GITHUB_SHA | head -c7)
-         echo "sha=$SHA" >> $GITHUB_OUTPUT
+          SHA=$(echo $GITHUB_SHA | head -c7)
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
       
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -48,6 +44,4 @@ jobs:
         run: docker build -t wiredworldweb/wired:${{steps.generate_tag.outputs.sha}} .
 
       - name: Push image
-        run: docker push wiredworldweb/wired:${{steps.generate_tag.outputs.sha}} .
-
-            
+        run: docker push wiredworldweb/wired:${{steps.generate_tag.outputs.sha}}
