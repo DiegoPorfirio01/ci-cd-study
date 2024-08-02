@@ -40,8 +40,13 @@ jobs:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}   
 
-      - name: Build Docker Image
-        run: docker build -t wiredworldweb/wired:${{steps.generate_tag.outputs.sha}} .
+      # - name: Build Docker Image
+      #   run: docker build -t wiredworldweb/wired:${{steps.generate_tag.outputs.sha}} .
 
-      - name: Push image
-        run: docker push wiredworldweb/wired:${{steps.generate_tag.outputs.sha}}
+      # - name: Push image
+      #   run: docker push 
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+         push: true
+         tags: wiredworldweb/wired:${{steps.generate_tag.outputs.sha}},wiredworldweb/wired:latest
