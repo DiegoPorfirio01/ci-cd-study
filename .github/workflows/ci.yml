@@ -50,8 +50,8 @@ jobs:
 
       - name: Build Docker Image
         env:
-          REGISTRY: ${{steps.login-ecr.outputs.registry}}
-          TAG: ${{steps.generate_tag.outputs.sha}}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          TAG: ${{ steps.generate_tag.outputs.sha }}
         run: | 
           docker build -t $REGISTRY/wired-ci:$TAG .
           docker push $REGISTRY/wired-ci:$TAG 
