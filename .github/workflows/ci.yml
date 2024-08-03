@@ -53,5 +53,5 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           TAG: ${{ steps.generate_tag.outputs.sha }}
         run: | 
-          docker build -t $REGISTRY/wired-ci:$TAG .
-          docker push $REGISTRY/wired-ci:$TAG 
+          docker build -t $REGISTRY/CI-CD:$TAG .
+          docker push $REGISTRY/CI-CD:$TAG 
