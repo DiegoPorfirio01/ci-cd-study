@@ -49,9 +49,24 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build Docker Image
+        id: build-docker-image
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           TAG: ${{ steps.generate_tag.outputs.sha }}
         run: | 
           docker build -t $REGISTRY/wired-ci:$TAG .
           docker push $REGISTRY/wired-ci:$TAG 
+          IMAGE=$(echo $REGISTRY/wired-ci:$TAG)
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+
+      - name: Deploy to app runner
+        uses: awslabs/amazon-app-runner-deploy@main
+        with: 
+          service: wired
+          image: ${{steps.build-docker-image.outputs.image}}
+          access-role-arn: arn:aws:iam::163547640766:role/app-runner-role
+          region: us-east-1
+          cpu: 1
+          memory: 1
+          port: 3000 //confira qual porta é exposta no dockerfile
+
