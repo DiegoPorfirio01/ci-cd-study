@@ -33,4 +33,4 @@ COPY --from=build /usr/src/app/node_modules ./node_modules
 EXPOSE 3000
 
 # Comando para iniciar a aplicação
-CMD ["pnpm", "run", "start"]
+CMD ["node", "dist/index.js"]
