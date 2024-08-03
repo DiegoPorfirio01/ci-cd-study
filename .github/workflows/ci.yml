@@ -41,7 +41,7 @@ jobs:
       - name: Configure AWS Credentials for China region audience
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: arn:aws:iam::163547640766:role/ecr_role
 
       - name: Login to AWS ECR
