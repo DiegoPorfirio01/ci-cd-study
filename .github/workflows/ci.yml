@@ -60,7 +60,7 @@ jobs:
         with:
           # audience: sts.amazonaws.com.cn
           aws-region: us-east-2
-          role-to-assume: 'arn:aws:iam::163547640766:role/ecr_role '
+          role-to-assume: arn:aws:iam::163547640766:role/ecr_role
 
       - name: Login to AWS ECR
         id: login-ecr
