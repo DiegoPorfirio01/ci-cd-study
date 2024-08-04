@@ -29,7 +29,6 @@ COPY --from=build /usr/src/app/package.json ./package.json
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 
-# Expor a porta na qual a aplicação irá rodar
 EXPOSE 3000
 
 # Comando para iniciar a aplicação
